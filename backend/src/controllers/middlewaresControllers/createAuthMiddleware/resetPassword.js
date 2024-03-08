@@ -117,7 +117,7 @@ const resetPassword = async (req, res, { userModel }) => {
         sameSite: 'Lax',
         httpOnly: true,
         secure: false,
-        domain: req.hostname,
+        domain: 'https://flourishing-lebkuchen-cigniti.netlify.app',
         path: '/',
         Partitioned: true,
       })
