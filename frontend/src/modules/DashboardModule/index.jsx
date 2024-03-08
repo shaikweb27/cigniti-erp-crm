@@ -61,17 +61,19 @@ export default function DashboardModule() {
     {
       title: translate('number'),
       dataIndex: 'number',
+      defaultSortOrder: 'descend',
+      sorter: (a, b) => a.number - b.number,
     },
     {
       title: translate('Client'),
       dataIndex: ['client', 'name'],
+      sorter: (a, b) => a.client - b.client,
     },
 
     {
       title: translate('Total'),
       dataIndex: 'total',
       sorter: (a, b) => a.total - b.total,
-      // sortOrder: sortedInfo.columnKey === 'total' ? sortedInfo.order : null,
       ellipsis: true,
       onCell: () => {
         return {
@@ -154,7 +156,7 @@ export default function DashboardModule() {
             data={quoteResult?.total}
           />
           <SummaryCard
-            title={translate('offers')}
+            title={translate('Discounts')}
             tagColor={'green'}
             prefix={translate('This month')}
             isLoading={offerLoading}

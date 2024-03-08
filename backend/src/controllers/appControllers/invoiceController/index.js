@@ -3,6 +3,7 @@ const methods = createCRUDController('Invoice');
 
 const sendMail = require('./sendMail');
 const create = require('./create');
+const search = require('./search');
 const summary = require('./summary');
 const update = require('./update');
 const remove = require('./remove');
@@ -11,6 +12,7 @@ const read = require('./read');
 
 methods.mail = sendMail;
 methods.create = create;
+methods.search = search;
 methods.update = update;
 methods.delete = remove;
 methods.summary = summary;

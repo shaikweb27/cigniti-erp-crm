@@ -8,7 +8,7 @@ const paymentSchema = new mongoose.Schema({
 
   createdBy: { type: mongoose.Schema.ObjectId, ref: 'Admin', autopopulate: true, required: true },
   number: {
-    type: Number,
+    type: String,
     required: true,
   },
   client: {
@@ -17,12 +17,12 @@ const paymentSchema = new mongoose.Schema({
     autopopulate: true,
     required: true,
   },
-  invoice: {
+  invoice: [{
     type: mongoose.Schema.ObjectId,
     ref: 'Invoice',
     required: true,
     autopopulate: true,
-  },
+  }],
   date: {
     type: Date,
     default: Date.now,

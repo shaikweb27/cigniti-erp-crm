@@ -88,7 +88,7 @@ const invoiceSchema = new mongoose.Schema({
       //   default: 0,
       // },
       total: {
-        type: Number,
+        type: String,
         required: true,
       },
     },
@@ -106,7 +106,7 @@ const invoiceSchema = new mongoose.Schema({
     default: 0,
   },
   total: {
-    type: Number,
+    type: String,
     default: 0,
   },
   currency: {
