@@ -35,7 +35,7 @@ const authUser = async (req, res, { user, databasePassword, password, UserPasswo
         sameSite: 'Lax',
         httpOnly: true,
         secure: false,
-        domain: 'https://flourishing-lebkuchen-cigniti.netlify.app/',
+        domain: 'https://flourishing-lebkuchen-cigniti.netlify.app',
         path: '/',
         Partitioned: true,
       })
