@@ -32,9 +32,9 @@ const authUser = async (req, res, { user, databasePassword, password, UserPasswo
       .status(200)
       .cookie('token', token, {
         maxAge: req.body.remember ? 365 * 24 * 60 * 60 * 1000 : null,
-        sameSite: 'Lax',
+        sameSite: 'none',
         httpOnly: true,
-        secure: false,
+        secure: true,
         // domain: 'https://flourishing-lebkuchen-cigniti.netlify.app',
         path: '/',
         Partitioned: true,
