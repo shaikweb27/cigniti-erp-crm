@@ -28,6 +28,9 @@ export const fields = {
   website: {
     type: 'url',
   },
+  address: {
+    type: 'string',
+  },
   // legalName: {
   //   type: 'string',
   //   required: true,
@@ -97,9 +100,6 @@ export const fields = {
   // location: {
   //   latitude: Number,
   //   longitude: Number,
-  // },
-  // address: {
-  //   type: 'string',
   // },
   // city: {
   //   type: 'string',
