@@ -20,6 +20,7 @@ const QuoteCreate = lazy(() => import('@/pages/Quote/QuoteCreate'));
 const QuoteRead = lazy(() => import('@/pages/Quote/QuoteRead'));
 const QuoteUpdate = lazy(() => import('@/pages/Quote/QuoteUpdate'));
 const Payment = lazy(() => import('@/pages/Payment/index'));
+const Credit = lazy(() => import('@/pages/CreditMemo/index'));
 const PaymentRead = lazy(() => import('@/pages/Payment/PaymentRead'));
 const PaymentUpdate = lazy(() => import('@/pages/Payment/PaymentUpdate'));
 const Employee = lazy(() => import('@/pages/Employee'));
@@ -143,6 +144,10 @@ let routes = {
     {
       path: '/payment',
       element: <Payment />,
+    },
+    {
+      path: '/credit',
+      element: <Credit />,
     },
     {
       path: '/payment/read/:id',

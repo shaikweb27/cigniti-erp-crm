@@ -93,7 +93,11 @@ function Sidebar({ collapsible, isMobile = false }) {
       icon: <CreditCardOutlined />,
       label: <Link to={'/payment'}>{translate('payments')}</Link>,
     },
-
+    {
+      key: 'credit',
+      icon: <UserOutlined />,
+      label: <Link to={'/credit'}>{translate('Credit Memo')}</Link>,
+    },
     {
       key: 'product',
       icon: <TagOutlined />,
