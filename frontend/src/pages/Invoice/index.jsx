@@ -138,7 +138,7 @@ export default function Invoice() {
 
   const dataTableColumns = [
     {
-      title: translate('INV. No.'),
+      title: translate('Inv. No.'),
       dataIndex: 'number',
       defaultSortOrder: 'descend',
       key: 'number',
