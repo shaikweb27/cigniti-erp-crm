@@ -98,7 +98,7 @@ function LoadInvoiceForm({ subTotal = 0, current = null }) {
         </Col>
         <Col className="gutter-row" span={4}>
           <Form.Item
-            label={translate('Inv. No.')}
+            label={translate('INV. No.')}
             name="number"
             initialValue={lastNumber}
             rules={[
@@ -107,7 +107,7 @@ function LoadInvoiceForm({ subTotal = 0, current = null }) {
               },
             ]}
           >
-            <Input style={{ width: '100%' }} readOnly />
+            <Input style={{ width: '100%' }} disabled />
             {/* ={lastNumber !== undefined} */}
           </Form.Item>
         </Col>
@@ -286,7 +286,7 @@ function LoadInvoiceForm({ subTotal = 0, current = null }) {
           </Col>
 
           <Col className="gutter-row" span={5}>
-            <Form.Item name="discount" rules={[{ required: true }]}>
+            <Form.Item name="discount" rules={[{ required: false }]} initialValue={disc}>
               <InputNumber
                 className="moneyInput"
                 onChange={(value) => setDiscount(value)}
