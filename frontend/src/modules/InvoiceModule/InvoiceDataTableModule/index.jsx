@@ -15,6 +15,11 @@ export default function InvoiceDataTableModule({ config }) {
             key: 'recordPayment',
             icon: <CreditCardOutlined />,
           },
+          {
+            label: translate('Record Credit Memo'),
+            key: '',
+            icon: <CreditCardOutlined />,
+          },
         ]}
       ></ErpPanel>
     </ErpLayout>
