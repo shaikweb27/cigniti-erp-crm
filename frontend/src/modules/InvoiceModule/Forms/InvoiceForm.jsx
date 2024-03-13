@@ -1,4 +1,5 @@
 import { Button, Col, Divider, Form, Input, InputNumber, Row, Select } from 'antd';
+import { useDate, useMoney } from '@/settings';
 import { useEffect, useRef, useState } from 'react';
 
 import AutoCompleteAsync from '@/components/AutoCompleteAsync';
@@ -11,7 +12,6 @@ import SelectCurrency from '@/components/SelectCurrency';
 import calculate from '@/utils/calculate';
 import dayjs from 'dayjs';
 import { selectFinanceSettings } from '@/redux/settings/selectors';
-import { useDate, useMoney } from '@/settings';
 import useLanguage from '@/locale/useLanguage';
 import { useSelector } from 'react-redux';
 import { generateInvoiceNumber } from '@/utils/helpers';
@@ -144,6 +144,7 @@ function LoadInvoiceForm({ subTotal = 0, current = null }) {
                 { value: 'draft', label: translate('Draft') },
                 { value: 'pending', label: translate('Pending') },
                 { value: 'sent', label: translate('Sent') },
+                { value: 'compleated', label: translate('Compleated') },
               ]}
             ></Select>
           </Form.Item>
