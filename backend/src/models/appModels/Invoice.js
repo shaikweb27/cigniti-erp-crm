@@ -88,7 +88,7 @@ const invoiceSchema = new mongoose.Schema({
       //   default: 0,
       // },
       total: {
-        type: String,
+        type: Number,
         required: true,
       },
     },
