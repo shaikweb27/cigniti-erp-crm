@@ -143,7 +143,11 @@ export default function Invoice() {
       defaultSortOrder: 'descend',
       key: 'number',
       ...getColumnSearchProps('number'),
-      sorter: (a, b) => a.number - b.number,
+      sorter: (a, b) => a.number.length - b.number.length,
+      // sortOrder: sortedInfo.columnKey === 'number' ? sortedInfo.order : null,
+      ellipsis: true,
+
+      // sortDirections: ['descend', 'ascend'],
       render: (invNo) => {
         var invNo = invNo.toString();
         if (invNo.includes('INV-')) {
