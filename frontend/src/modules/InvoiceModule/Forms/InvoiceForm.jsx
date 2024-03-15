@@ -11,10 +11,10 @@ import SelectAsync from '@/components/SelectAsync';
 import SelectCurrency from '@/components/SelectCurrency';
 import calculate from '@/utils/calculate';
 import dayjs from 'dayjs';
+import { generateInvoiceNumber } from '@/utils/helpers';
 import { selectFinanceSettings } from '@/redux/settings/selectors';
 import useLanguage from '@/locale/useLanguage';
 import { useSelector } from 'react-redux';
-import { generateInvoiceNumber } from '@/utils/helpers';
 
 export default function InvoiceForm({ subTotal = 0, current = null }) {
   const { last_invoice_number } = useSelector(selectFinanceSettings);
@@ -137,14 +137,14 @@ function LoadInvoiceForm({ subTotal = 0, current = null }) {
                 required: false,
               },
             ]}
-            initialValue={'draft'}
+            initialValue={'pending'}
           >
             <Select
               options={[
                 { value: 'draft', label: translate('Draft') },
                 { value: 'pending', label: translate('Pending') },
                 { value: 'sent', label: translate('Sent') },
-                { value: 'compleated', label: translate('Compleated') },
+                { value: 'completed', label: translate('Completed') },
               ]}
             ></Select>
           </Form.Item>

@@ -11,6 +11,7 @@ import {
   OrderedListOutlined,
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 import AutoCompleteAsync from '@/components/AutoCompleteAsync';
 import { DOWNLOAD_BASE_URL } from '@/config/serverApiConfig';
@@ -55,33 +56,35 @@ export default function DataTable({ config, extra = [] }) {
 
   const [fileList, setFileList] = useState([]);
 
-  const items = [
-    {
-      label: translate('Show'),
-      key: 'read',
-      icon: <EyeOutlined />,
-    },
-    {
-      label: translate('Edit'),
-      key: 'edit',
-      icon: <EditOutlined />,
-    },
-    {
-      label: translate('Download'),
-      key: 'download',
-      icon: <FilePdfOutlined />,
-    },
-    ...extra,
-    {
-      type: 'divider',
-    },
+  // const items = [
+  //   {
+  //     label: translate('Show'),
+  //     key: 'read',
+  //     icon: <EyeOutlined />,
+  //   },
+  //   {
+  //     label: translate('Edit'),
+  //     key: 'edit',
+  //     icon: <EditOutlined />,
+  //   },
+  //   {
+  //     label: translate('Download'),
+  //     key: 'download',
+  //     icon: <FilePdfOutlined />,
+  //   },
+  //   ...extra,
+  //   {
+  //     type: 'divider',
+  //   },
 
-    {
-      label: translate('Delete'),
-      key: 'delete',
-      icon: <DeleteOutlined />,
-    },
-  ];
+  //   {
+  //     label: translate('Delete'),
+  //     key: 'delete',
+  //     icon: <DeleteOutlined />,
+  //   },
+  // ];
+
+  const [items, setItems] = useState([]);
 
   const navigate = useNavigate();
 
@@ -107,6 +110,52 @@ export default function DataTable({ config, extra = [] }) {
     dispatch(erp.currentItem({ data: record }));
     navigate(`/invoice/pay/${record._id}`);
   };
+  const updateItems = (record) => {
+    debugger;
+    const items = [
+      {
+        label: translate('Show'),
+        key: 'read',
+        icon: <EyeOutlined />,
+      },
+      {
+        label: translate('Edit'),
+        key: 'edit',
+        icon: <EditOutlined />,
+      },
+      {
+        label: translate('Download'),
+        key: 'download',
+        icon: <FilePdfOutlined />,
+      },
+      ...extra,
+      {
+        type: 'divider',
+      },
+      {
+        label: translate('Delete'),
+        key: 'delete',
+        icon: <DeleteOutlined />,
+      },
+    ];
+    if (record.paymentStatus === 'paid') {
+      var newItems = items.map((item, i) => {
+        if (i === 3) {
+          return { ...item, disabled: true };
+        } else return item;
+      });
+      setItems(newItems);
+    } else if (record.paymentStatus === 'unpaid') {
+      var newItems = items.map((item, i) => {
+        if (i === 3) {
+          return { ...item, danger: true };
+        } else return item;
+      });
+      setItems(newItems);
+    } else {
+      setItems(items);
+    }
+  };
 
   dataTableColumns = [
     ...dataTableColumns,
@@ -114,41 +163,43 @@ export default function DataTable({ config, extra = [] }) {
       title: '',
       key: 'action',
       fixed: 'right',
-      render: (_, record) => (
-        <Dropdown
-          menu={{
-            items,
-            onClick: ({ key }) => {
-              switch (key) {
-                case 'read':
-                  handleRead(record);
-                  break;
-                case 'edit':
-                  handleEdit(record);
-                  break;
-                case 'download':
-                  handleDownload(record);
-                  break;
-                case 'delete':
-                  handleDelete(record);
-                  break;
-                case 'recordPayment':
-                  handleRecordPayment(record);
-                  break;
-                default:
-                  break;
-              }
-              // else if (key === '2')handleCloseTask
-            },
-          }}
-          trigger={['click']}
-        >
-          <EllipsisOutlined
-            style={{ cursor: 'pointer', fontSize: '24px' }}
-            onClick={(e) => e.preventDefault()}
-          />
-        </Dropdown>
-      ),
+      render: (_, record) => {
+        return (
+          <Dropdown
+            menu={{
+              items,
+              onClick: ({ key }) => {
+                switch (key) {
+                  case 'read':
+                    handleRead(record);
+                    break;
+                  case 'edit':
+                    handleEdit(record);
+                    break;
+                  case 'download':
+                    handleDownload(record);
+                    break;
+                  case 'delete':
+                    handleDelete(record);
+                    break;
+                  case 'recordPayment':
+                    handleRecordPayment(record);
+                    break;
+                  default:
+                    break;
+                }
+                // else if (key === '2')handleCloseTask
+              },
+            }}
+            trigger={['click']}
+          >
+            <EllipsisOutlined
+              style={{ cursor: 'pointer', fontSize: '24px' }}
+              onClick={() => updateItems(record)}
+            />
+          </Dropdown>
+        );
+      },
     },
   ];
 
