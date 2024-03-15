@@ -1,4 +1,4 @@
-import { Button, Dropdown, Table } from 'antd';
+import { Button, Dropdown, Table, Upload, Form } from 'antd';
 import {
   DeleteOutlined,
   EditOutlined,
@@ -7,6 +7,8 @@ import {
   FilePdfOutlined,
   PlusOutlined,
   RedoOutlined,
+  UploadOutlined,
+  OrderedListOutlined,
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -16,10 +18,11 @@ import { PageHeader } from '@ant-design/pro-layout';
 import { erp } from '@/redux/erp/actions';
 import { selectListItems } from '@/redux/erp/selectors';
 import { generate as uniqueId } from 'shortid';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useErpContext } from '@/context/erp';
 import useLanguage from '@/locale/useLanguage';
 import { useNavigate } from 'react-router-dom';
+import UploadImg from '../ProfileModule/components/UploadImg';
 
 function AddNewItem({ config }) {
   const navigate = useNavigate();
@@ -49,6 +52,8 @@ export default function DataTable({ config, extra = [] }) {
 
   const { erpContextAction } = useErpContext();
   const { modal } = erpContextAction;
+
+  const [fileList, setFileList] = useState([]);
 
   const items = [
     {
@@ -171,34 +176,110 @@ export default function DataTable({ config, extra = [] }) {
     dispatch(erp.list({ entity, options }));
   };
 
-  return (
-    <>
-      <PageHeader
-        title={DATATABLE_TITLE}
-        ghost={true}
-        extra={[
+  // Conditional rendering based on DATATABLE_TITLE
+  const renderPageHeaderExtra = () => {
+    if (DATATABLE_TITLE === 'Upload Invoices') {
+      return null; // Return null to not render any extra components
+    } else {
+      return (
+        <>
           <AutoCompleteAsync
             key={`${uniqueId()}`}
             entity={searchConfig?.entity}
             displayLabels={['name']}
             searchFields={'name'}
             onChange={filterTable}
-            // redirectLabel={'Add New Client'}
-            // withRedirect
-            // urlToRedirect={'/customer'}
-          />,
+          />
           <Button onClick={handelDataTableLoad} key={`${uniqueId()}`} icon={<RedoOutlined />}>
             {translate('Refresh')}
-          </Button>,
+          </Button>
+          {!disableAdd && <AddNewItem config={config} key={`${uniqueId()}`} />}
+        </>
+      );
+    }
+  };
 
-          !disableAdd && <AddNewItem config={config} key={`${uniqueId()}`} />,
-        ]}
+  const renderUploadInvoicesView = () => {
+    // beforeUpload={beforeUpload}
+
+    const handleFileChange = (info) => {
+      setFileList(info.fileList);
+    };
+
+    const handleShowInvoicesList = (e) => {
+      e.stopPropagation(); // Stop the event propagation
+      navigate('/invoice');
+    };
+
+    return (
+      <Form.Item
+        name="file"
+        label={translate('Upload File')}
+        valuePropName="fileList"
+        getValueFromEvent={(e) => e.fileList}
+      >
+        <Upload onChange={handleFileChange}>
+          <Button icon={<UploadOutlined />}>Click to Upload</Button>
+
+          {fileList.length > 0 && (
+            <Button
+              type="primary"
+              style={{ marginLeft: '10px' }}
+              icon={<OrderedListOutlined />}
+              onClick={handleShowInvoicesList}
+            >
+              Invoices List
+            </Button>
+          )}
+        </Upload>
+      </Form.Item>
+    );
+  };
+
+  return (
+    <>
+      <PageHeader
+        title={DATATABLE_TITLE}
+        ghost={true}
+        extra={
+          renderPageHeaderExtra()
+          //   [
+          //   <AutoCompleteAsync
+          //     key={`${uniqueId()}`}
+          //     entity={searchConfig?.entity}
+          //     displayLabels={['name']}
+          //     searchFields={'name'}
+          //     onChange={filterTable}
+          //     // redirectLabel={'Add New Client'}
+          //     // withRedirect
+          //     // urlToRedirect={'/customer'}
+          //   />,
+          //   <Button onClick={handelDataTableLoad} key={`${uniqueId()}`} icon={<RedoOutlined />}>
+          //     {translate('Refresh')}
+          //   </Button>,
+
+          // !disableAdd && <AddNewItem config={config} key={`${uniqueId()}`} />,
+          // ]
+        }
         style={{
           padding: '20px 0px',
         }}
-      ></PageHeader>
+      />
 
-      <Table
+      {DATATABLE_TITLE === 'Upload Invoices' ? (
+        renderUploadInvoicesView()
+      ) : (
+        <Table
+          columns={dataTableColumns}
+          rowKey={(item) => item._id}
+          dataSource={dataSource}
+          pagination={pagination}
+          loading={listIsLoading}
+          onChange={handelDataTableLoad}
+          scroll={{ x: true }}
+        />
+      )}
+      {/* <Table
         columns={dataTableColumns}
         rowKey={(item) => item._id}
         dataSource={dataSource}
@@ -206,7 +287,7 @@ export default function DataTable({ config, extra = [] }) {
         loading={listIsLoading}
         onChange={handelDataTableLoad}
         scroll={{ x: true }}
-      />
+      /> */}
     </>
   );
 }

@@ -84,6 +84,11 @@ function Sidebar({ collapsible, isMobile = false }) {
       label: <Link to={'/invoice'}>{translate('invoices')}</Link>,
     },
     {
+      key: 'uploadinvoice',
+      icon: <ContainerOutlined />,
+      label: <Link to={'/uploadinvoice'}>{translate('Upload invoices')}</Link>,
+    },
+    {
       key: 'quote',
       icon: <FileSyncOutlined />,
       label: <Link to={'/quote'}>{translate('proforma invoices')}</Link>,
