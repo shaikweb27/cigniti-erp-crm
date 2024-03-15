@@ -19,7 +19,6 @@ import { PageHeader } from '@ant-design/pro-layout';
 import { erp } from '@/redux/erp/actions';
 import { selectListItems } from '@/redux/erp/selectors';
 import { generate as uniqueId } from 'shortid';
-import { useEffect, useState } from 'react';
 import { useErpContext } from '@/context/erp';
 import useLanguage from '@/locale/useLanguage';
 import { useNavigate } from 'react-router-dom';
