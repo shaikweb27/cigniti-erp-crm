@@ -140,14 +140,11 @@ export default function Invoice() {
     {
       title: translate('INV. No.'),
       dataIndex: 'number',
-      defaultSortOrder: 'descend',
       key: 'number',
       ...getColumnSearchProps('number'),
-      sorter: (a, b) => a.number.length - b.number.length,
-      // sortOrder: sortedInfo.columnKey === 'number' ? sortedInfo.order : null,
+      sorter: (a, b) => a.number.localeCompare(b.number),
       ellipsis: true,
 
-      // sortDirections: ['descend', 'ascend'],
       render: (invNo) => {
         var invNo = invNo.toString();
         if (invNo.includes('INV-')) {
@@ -176,7 +173,7 @@ export default function Invoice() {
       title: translate('Client'),
       dataIndex: ['client', 'name'],
       key: 'name',
-      sorter: (a, b) => a.number - b.number,
+      sorter: (a, b) => a.client.localeCompare(b.client),
       filters: [
         {
           text: 'AstraZeneca',
@@ -192,7 +189,7 @@ export default function Invoice() {
     {
       title: translate('Date'),
       dataIndex: 'date',
-      sorter: (a, b) => a.date - b.date,
+      sorter: (a, b) => a.date.localeCompare(b.date),
       render: (date) => {
         return dayjs(date).format(dateFormat);
       },
@@ -200,7 +197,7 @@ export default function Invoice() {
     {
       title: translate('Due Date'),
       dataIndex: 'expiredDate',
-      sorter: (a, b) => a.expiredDate - b.expiredDate,
+      sorter: (a, b) => a.expiredDate.localeCompare(b.expiredDate),
       render: (date) => {
         return dayjs(date).format(dateFormat);
       },
@@ -258,7 +255,7 @@ export default function Invoice() {
     {
       title: translate('Status'),
       dataIndex: 'status',
-      sorter: (a, b) => a.status - b.status,
+      sorter: (a, b) => a.status.localeCompare(b.status),
       render: (status) => {
         let tagStatus = tagColor(status);
 
@@ -273,7 +270,7 @@ export default function Invoice() {
     {
       title: translate('Document Type'),
       dataIndex: 'documentType',
-      sorter: (a, b) => a.documentType - b.documentType,
+      sorter: (a, b) => a.status.localeCompare(b.status),
       render: (documentType) => {
         let tagStatus = tagColor(documentType);
 
@@ -288,7 +285,8 @@ export default function Invoice() {
     {
       title: translate('Payment'),
       dataIndex: 'paymentStatus',
-      sorter: (a, b) => a.paymentStatus - b.paymentStatus,
+      sorter: (a, b) => a.paymentStatus.localeCompare(b.paymentStatus),
+
       filters: [
         {
           text: 'Unpaid',
@@ -300,8 +298,6 @@ export default function Invoice() {
         },
       ],
       onFilter: (value, record) => record.address.indexOf(value) === 0,
-      // defaultSortOrder: ['Unpaid'],
-      // sortOrder: 'ascend',
       render: (paymentStatus) => {
         let tagStatus = tagColor(paymentStatus);
 

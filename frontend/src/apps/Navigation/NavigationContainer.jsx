@@ -96,7 +96,7 @@ function Sidebar({ collapsible, isMobile = false }) {
     {
       key: 'payment',
       icon: <CreditCardOutlined />,
-      label: <Link to={'/payment'}>{translate('payments')}</Link>,
+      label: <Link to={'/payment'}>{translate('Receipts')}</Link>,
     },
     {
       key: 'credit',
