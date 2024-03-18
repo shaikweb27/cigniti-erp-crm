@@ -173,7 +173,7 @@ export default function Invoice() {
       title: translate('Client'),
       dataIndex: ['client', 'name'],
       key: 'name',
-      sorter: (a, b) => a.client.localeCompare(b.client),
+      sorter: true,
       filters: [
         {
           text: 'AstraZeneca',
