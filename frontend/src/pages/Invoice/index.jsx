@@ -300,6 +300,8 @@ export default function Invoice() {
         },
       ],
       onFilter: (value, record) => record.address.indexOf(value) === 0,
+      // defaultSortOrder: ['Unpaid'],
+      // sortOrder: 'ascend',
       render: (paymentStatus) => {
         let tagStatus = tagColor(paymentStatus);
 
