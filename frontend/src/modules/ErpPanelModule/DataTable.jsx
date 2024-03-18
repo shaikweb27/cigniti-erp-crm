@@ -262,27 +262,40 @@ export default function DataTable({ config, extra = [] }) {
     };
 
     return (
-      <Form.Item
-        name="file"
-        label={translate('Upload File')}
-        valuePropName="fileList"
-        getValueFromEvent={(e) => e.fileList}
+      <div
+        style={{
+          flexDirection: 'column',
+          justifyContent: 'center',
+          height: '100vh',
+        }}
       >
-        <Upload onChange={handleFileChange}>
-          <Button icon={<UploadOutlined />}>Click to Upload</Button>
-
-          {fileList.length > 0 && (
-            <Button
-              type="primary"
-              style={{ marginLeft: '10px' }}
-              icon={<OrderedListOutlined />}
-              onClick={handleShowInvoicesList}
-            >
-              Invoices List
+        <Form>
+          <Form.Item
+            name="file"
+            label={translate('Upload File')}
+            valuePropName="fileList"
+            getValueFromEvent={(e) => e.fileList}
+          >
+            <Upload onChange={handleFileChange}>
+              <Button icon={<UploadOutlined />}>Click to Upload</Button>
+            </Upload>
+          </Form.Item>
+        </Form>
+        {fileList.length > 0 && (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+            }}
+          >
+            <Button type="primary" icon={<OrderedListOutlined />} onClick={handleShowInvoicesList}>
+              View your uploaded Invoices
             </Button>
-          )}
-        </Upload>
-      </Form.Item>
+          </div>
+        )}
+      </div>
     );
   };
 
