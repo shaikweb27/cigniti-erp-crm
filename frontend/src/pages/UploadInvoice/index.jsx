@@ -319,7 +319,6 @@ export default function Invoice() {
     DATATABLE_TITLE: translate('Upload Invoices'),
     ADD_NEW_ENTITY: translate('Upload Multiple Invoices'),
     ENTITY_NAME: translate('invoice'),
-
     RECORD_ENTITY: translate('record_payment'),
   };
 

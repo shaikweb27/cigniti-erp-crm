@@ -1,14 +1,14 @@
-import { Button, Dropdown, Table, Upload, Form } from 'antd';
+import { Button, Dropdown, Form, Select, Table, Upload } from 'antd';
 import {
   DeleteOutlined,
   EditOutlined,
   EllipsisOutlined,
   EyeOutlined,
   FilePdfOutlined,
+  OrderedListOutlined,
   PlusOutlined,
   RedoOutlined,
   UploadOutlined,
-  OrderedListOutlined,
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -16,13 +16,13 @@ import { useEffect, useState } from 'react';
 import AutoCompleteAsync from '@/components/AutoCompleteAsync';
 import { DOWNLOAD_BASE_URL } from '@/config/serverApiConfig';
 import { PageHeader } from '@ant-design/pro-layout';
+import UploadImg from '../ProfileModule/components/UploadImg';
 import { erp } from '@/redux/erp/actions';
 import { selectListItems } from '@/redux/erp/selectors';
 import { generate as uniqueId } from 'shortid';
 import { useErpContext } from '@/context/erp';
 import useLanguage from '@/locale/useLanguage';
 import { useNavigate } from 'react-router-dom';
-import UploadImg from '../ProfileModule/components/UploadImg';
 
 function AddNewItem({ config }) {
   const navigate = useNavigate();
@@ -270,6 +270,32 @@ export default function DataTable({ config, extra = [] }) {
         }}
       >
         <Form>
+          <Select
+            showSearch
+            style={{ width: 200 }}
+            placeholder="Search to Select"
+            optionFilterProp="children"
+            filterOption={(input, option) => (option?.label ?? '').includes(input)}
+            filterSort={(optionA, optionB) =>
+              (optionA?.label ?? '')
+                .toLowerCase()
+                .localeCompare((optionB?.label ?? '').toLowerCase())
+            }
+            options={[
+              {
+                value: '1',
+                label: 'Invoice',
+              },
+              {
+                value: '2',
+                label: 'Credit Memo',
+              },
+              {
+                value: '3',
+                label: 'Debit Memo',
+              },
+            ]}
+          />
           <Form.Item
             name="file"
             label={translate('Upload File')}
