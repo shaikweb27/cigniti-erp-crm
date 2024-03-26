@@ -48,7 +48,7 @@ export default function AnalyticSummaryCard({ title, tagColor, data, prefix, isL
                 {translate('Receipts')}
               </Link>
             ) : title === 'Unpaid' ? (
-              <Link to="/invoice" style={linkStyle}>
+              <Link to="/unpaidinvoice" style={linkStyle}>
                 {translate('Unpaid')}
               </Link>
             ) : (

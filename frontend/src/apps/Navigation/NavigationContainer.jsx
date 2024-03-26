@@ -84,6 +84,11 @@ function Sidebar({ collapsible, isMobile = false }) {
       label: <Link to={'/invoice'}>{translate('invoices')}</Link>,
     },
     {
+      key: 'unpaidinvoice',
+      icon: <ContainerOutlined />,
+      label: <Link to={'/unpaidinvoice'}>{translate('Unpaid Invoices')}</Link>,
+    },
+    {
       key: 'uploadinvoice',
       icon: <ContainerOutlined />,
       label: <Link to={'/uploadinvoice'}>{translate('Upload invoices')}</Link>,
