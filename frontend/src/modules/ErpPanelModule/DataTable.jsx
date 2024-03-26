@@ -45,7 +45,7 @@ export default function DataTable({ config, extra = [] }) {
   let { entity, dataTableColumns, disableAdd = false, searchConfig } = config;
 
   const { DATATABLE_TITLE } = config;
-
+  const { title } = config;
   const { result: listResult, isLoading: listIsLoading } = useSelector(selectListItems);
 
   const { pagination, items: dataSource } = listResult;
@@ -206,11 +206,14 @@ export default function DataTable({ config, extra = [] }) {
 
   const handelDataTableLoad = (pagination) => {
     const options = { page: pagination.current || 1, items: pagination.pageSize || 10 };
-    dispatch(erp.list({ entity, options }));
+
+    if (title == 'unpaid') dispatch(erp.unPaidlist({ entity, options }));
+    else dispatch(erp.list({ entity, options }));
   };
 
   const dispatcher = () => {
-    dispatch(erp.list({ entity }));
+    if (title == 'unpaid') dispatch(erp.unPaidlist({ entity }));
+    else dispatch(erp.list({ entity }));
   };
 
   useEffect(() => {
@@ -223,7 +226,8 @@ export default function DataTable({ config, extra = [] }) {
 
   const filterTable = (value) => {
     const options = { equal: value, filter: searchConfig?.entity };
-    dispatch(erp.list({ entity, options }));
+    if (title == 'unpaid') dispatch(erp.unPaidlist({ entity, options }));
+    else dispatch(erp.list({ entity, options }));
   };
 
   // Conditional rendering based on DATATABLE_TITLE
